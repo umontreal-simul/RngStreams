@@ -1,8 +1,8 @@
-project(RngStream LANGUAGES CXX)
+project(RngStreams LANGUAGES CXX)
 cmake_minimum_required(VERSION 3.5)
 
-option(RngStream_BUILD_SHARED_LIBS "Compile RngStream as a shared library" ON)
-if(RngStream_BUILD_SHARED_LIBS)
+option(RngStreams_BUILD_SHARED_LIBS "Compile RngStreams as a shared library" ON)
+if(RngStreams_BUILD_SHARED_LIBS)
   add_library(${PROJECT_NAME}
     SHARED
       src/RngStream.cpp
@@ -44,6 +44,13 @@ else()
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
   endif()
   message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+endif()
+
+if (${PROJECT_NAME}_BUILD_TESTS)
+  add_subdirectory(tests/doctest)
+  # find_package(doctest REQUIRED)
+  enable_testing()
+  add_subdirectory(tests/)
 endif()
 
 include(GNUInstallDirs)
