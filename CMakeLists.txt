@@ -21,7 +21,7 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     $<INSTALL_INTERFACE:include>
 )
 
@@ -47,6 +47,8 @@ else()
 endif()
 
 if (${PROJECT_NAME}_BUILD_TESTS)
+  # Prevent doctest installation
+  set(DOCTEST_NO_INSTALL ON)
   add_subdirectory(tests/doctest)
   # find_package(doctest REQUIRED)
   enable_testing()
@@ -60,7 +62,7 @@ install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/$<CONFIG>
 )
 
-install(FILES RngStream.h
+install(FILES src/RngStream.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
