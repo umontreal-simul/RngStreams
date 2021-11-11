@@ -165,17 +165,17 @@ void MatMatModM (const double A[3][3], const double B[3][3],
 //
 void MatTwoPowModM (const double A[3][3], double B[3][3], double m, long e)
 {
-   int i, j;
+    int i, j;
 
-   /* initialize: B = A */
-   if (A != B) {
-      for (i = 0; i < 3; ++i)
-         for (j = 0; j < 3; ++j)
-            B[i][j] = A[i][j];
-   }
-   /* Compute B = A^(2^e) mod m */
-   for (i = 0; i < e; i++)
-      MatMatModM (B, B, B, m);
+    /* initialize: B = A */
+    if (A != B) {
+        for (i = 0; i < 3; ++i)
+            for (j = 0; j < 3; ++j)
+                B[i][j] = A[i][j];
+    }
+    /* Compute B = A^(2^e) mod m */
+    for (i = 0; i < e; i++)
+        MatMatModM (B, B, B, m);
 }
 
 
@@ -305,7 +305,7 @@ double RngStream::U01d ()
 //
 double RngStream::nextSeed[6] =
 {
-   12345.0, 12345.0, 12345.0, 12345.0, 12345.0, 12345.0
+    12345.0, 12345.0, 12345.0, 12345.0, 12345.0, 12345.0
 };
 
 
@@ -314,22 +314,22 @@ double RngStream::nextSeed[6] =
 //
 RngStream::RngStream (const char *s) : name (s)
 {
-   anti = false;
-   incPrec = false;
+    anti = false;
+    incPrec = false;
 
-   /* Information on a stream. The arrays {Cg, Bg, Ig} contain the current
-   state of the stream, the starting state of the current SubStream, and the
-   starting state of the stream. This stream generates antithetic variates
-   if anti = true. It also generates numbers with extended precision (53
-   bits if machine follows IEEE 754 standard) if incPrec = true. nextSeed
-   will be the seed of the next declared RngStream. */
+    /* Information on a stream. The arrays {Cg, Bg, Ig} contain the current
+       state of the stream, the starting state of the current SubStream, and the
+       starting state of the stream. This stream generates antithetic variates
+       if anti = true. It also generates numbers with extended precision (53
+       bits if machine follows IEEE 754 standard) if incPrec = true. nextSeed
+       will be the seed of the next declared RngStream. */
 
-   for (int i = 0; i < 6; ++i) {
-      Bg[i] = Cg[i] = Ig[i] = nextSeed[i];
-   }
+    for (int i = 0; i < 6; ++i) {
+        Bg[i] = Cg[i] = Ig[i] = nextSeed[i];
+    }
 
-   MatVecModM (A1p127, nextSeed, nextSeed, m1);
-   MatVecModM (A2p127, &nextSeed[3], &nextSeed[3], m2);
+    MatVecModM (A1p127, nextSeed, nextSeed, m1);
+    MatVecModM (A2p127, &nextSeed[3], &nextSeed[3], m2);
 }
 
 
@@ -338,8 +338,8 @@ RngStream::RngStream (const char *s) : name (s)
 //
 void RngStream::ResetStartStream ()
 {
-   for (int i = 0; i < 6; ++i)
-      Cg[i] = Bg[i] = Ig[i];
+    for (int i = 0; i < 6; ++i)
+        Cg[i] = Bg[i] = Ig[i];
 }
 
 
@@ -348,8 +348,8 @@ void RngStream::ResetStartStream ()
 //
 void RngStream::ResetStartSubstream ()
 {
-   for (int i = 0; i < 6; ++i)
-      Cg[i] = Bg[i];
+    for (int i = 0; i < 6; ++i)
+        Cg[i] = Bg[i];
 }
 
 //-------------------------------------------------------------------------
@@ -357,12 +357,12 @@ void RngStream::ResetStartSubstream ()
 //
 void RngStream::ResetNextStream ()
 {
-   MatVecModM (A1p127, Ig, Ig, m1);
-   MatVecModM (A2p127, &Ig[3], &Ig[3], m2);
-   for (int i = 0; i < 6; ++i) {
-      Bg[i] = Ig[i];
-	  Cg[i] = Ig[i];
-   }
+    MatVecModM (A1p127, Ig, Ig, m1);
+    MatVecModM (A2p127, &Ig[3], &Ig[3], m2);
+    for (int i = 0; i < 6; ++i) {
+        Bg[i] = Ig[i];
+        Cg[i] = Ig[i];
+    }
 }
 
 //-------------------------------------------------------------------------
@@ -370,32 +370,32 @@ void RngStream::ResetNextStream ()
 //
 void RngStream::ResetNextSubstream ()
 {
-   MatVecModM(A1p76, Bg, Bg, m1);
-   MatVecModM(A2p76, &Bg[3], &Bg[3], m2);
-   for (int i = 0; i < 6; ++i)
-       Cg[i] = Bg[i];
+    MatVecModM(A1p76, Bg, Bg, m1);
+    MatVecModM(A2p76, &Bg[3], &Bg[3], m2);
+    for (int i = 0; i < 6; ++i)
+        Cg[i] = Bg[i];
 }
 
 
 //-------------------------------------------------------------------------
 bool RngStream::SetPackageSeed (const unsigned long seed[6])
 {
-   if (CheckSeed (seed))
-      return false;                   // FAILURE     
-   for (int i = 0; i < 6; ++i)
-      nextSeed[i] = seed[i];
-   return true;                       // SUCCESS
+    if (CheckSeed (seed))
+        return false;                   // FAILURE
+    for (int i = 0; i < 6; ++i)
+        nextSeed[i] = seed[i];
+    return true;                       // SUCCESS
 }
 
 
 //-------------------------------------------------------------------------
 bool RngStream::SetSeed (const unsigned long seed[6])
 {
-   if (CheckSeed (seed))
-      return false;                   // FAILURE     
-   for (int i = 0; i < 6; ++i)
-      Cg[i] = Bg[i] = Ig[i] = seed[i];
-   return true;                       // SUCCESS
+    if (CheckSeed (seed))
+        return false;                   // FAILURE
+    for (int i = 0; i < 6; ++i)
+        Cg[i] = Bg[i] = Ig[i] = seed[i];
+    return true;                       // SUCCESS
 }
 
 
@@ -438,8 +438,8 @@ void RngStream::AdvanceState (long e, long c)
 //-------------------------------------------------------------------------
 void RngStream::GetState (unsigned long seed[6]) const
 {
-   for (int i = 0; i < 6; ++i)
-      seed[i] = static_cast<unsigned long> (Cg[i]);
+    for (int i = 0; i < 6; ++i)
+        seed[i] = static_cast<unsigned long> (Cg[i]);
 }
 
 
@@ -492,14 +492,14 @@ void RngStream::WriteStateFull () const
 //-------------------------------------------------------------------------
 void RngStream::IncreasedPrecis (bool incp)
 {
-   incPrec = incp;
+    incPrec = incp;
 }
 
 
 //-------------------------------------------------------------------------
 void RngStream::SetAntithetic (bool a)
 {
-   anti = a;
+    anti = a;
 }
 
 
@@ -508,10 +508,10 @@ void RngStream::SetAntithetic (bool a)
 //
 double RngStream::RandU01 ()
 {
-   if (incPrec)
-      return U01d();
-   else
-      return U01();
+    if (incPrec)
+        return U01d();
+    else
+        return U01();
 }
 
 
