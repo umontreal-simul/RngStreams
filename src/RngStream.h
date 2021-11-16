@@ -19,9 +19,6 @@ class RngStream
         void ResetStartSubstream ();
 
 
-        void ResetNextStream ();
-
-
         void ResetNextSubstream ();
 
 
