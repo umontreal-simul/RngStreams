@@ -1,5 +1,28 @@
 # RngStreams
-MRG32k3a random number generator with multiple streams and substreams
+
+RngStreams is an object-oriented random-number package with many long streams and substreams,
+based on the MRG32k3a RNG from reference [1] below and proposed in [2].
+
+It has implementations in C, C++, Java, R, OpenCL, and some other languages.
+
+e-mail: <lecuyer@iro.umontreal.ca>
+web page: <http://www.iro.umontreal.ca/~lecuyer/>
+
+If you use it for your research, please cite the following relevant publications in which MRG32k3a
+and the package with multiple streams were proposed:
+
+[1] P. L'Ecuyer, Good Parameter Sets for Combined Multiple Recursive Random Number Generators,
+Operations Research, 47, 1 (1999), 159--164.  
+See <https://www-labs.iro.umontreal.ca/~lecuyer/myftp/papers/opres-combmrg2-1999.pdf>
+
+[2] P. L'Ecuyer, R. Simard, E. J. Chen, and W. D. Kelton,
+An Objected-Oriented Random-Number Package with Many Long Streams and Substreams,
+Operations Research, 50, 6 (2002), 1073--1075  
+See <https://www-labs.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf>
+
+## License
+
+The package is under an Apache 2.0 license, copyrighted by Pierre L'Écuyer and the University of Montreal. It can be used freely for any purpose.
 
 ## Build
 
