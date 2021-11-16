@@ -1,11 +1,11 @@
 # RngStreams
 
-RngStreams is an object-oriented random-number package with many long streams and substreams,
+**RngStreams** is an object-oriented random-number package with many long streams and substreams,
 based on the MRG32k3a RNG from reference [1] below and proposed in [2].
 
-It has implementations in C, C++, Java, R, OpenCL, and some other languages.
+This repository is a C++ implementation, but **RngStreams** is also available for C, Java, R, OpenCL, and some other languages.
 
-e-mail: <lecuyer@iro.umontreal.ca>
+e-mail: <lecuyer@iro.umontreal.ca>  
 web page: <http://www.iro.umontreal.ca/~lecuyer/>
 
 If you use it for your research, please cite the following relevant publications in which MRG32k3a
