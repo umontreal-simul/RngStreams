@@ -28,7 +28,7 @@ The package is under an Apache 2.0 license, copyrighted by Pierre L'Écuyer and 
 
 Clone the project
 ``` sh
-git clone git@gitlab.inria.fr:slegrand/paracirce.git
+git clone git@github.com:umontreal-simul/RngStreams.git
 ```
 
 
@@ -64,7 +64,7 @@ If the **RngStreams** installation path is not standard, set RngStreams_ROOT to 
 path when invoking cmake:
 
 ``` bash
-cmake -DRngStreams_ROOT=/paracirce/install/path ...
+cmake -DRngStreams_ROOT=/rngstreams/install/path ...
 ```
 
 ## Tests
