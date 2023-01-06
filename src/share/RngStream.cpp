@@ -28,16 +28,12 @@ Substreams'',
  *   TA Trikalinos
  *   Date:         05 January 2023 - changes
  *   Changed testing suite to GTest (system)
- *   Added functions that return the internal state to allow cloning, 
+ *   Added functions that return the internal state to allow cloning,
  *     and comparisons.
 \***********************************************************************/
 
-
-
 #include "RngStream.h"
 
-#include <cstdlib>
-#include <iostream>
 using namespace std;
 
 namespace {
@@ -307,6 +303,44 @@ RngStream::RngStream(const char *s) : name(s) {
 }
 
 //-------------------------------------------------------------------------
+// constructor using RngContent struct
+//
+RngStream::RngStream(const RngContents &rng_contents) {
+  name = rng_contents.name;
+  anti = rng_contents.antithetic;
+  incPrec = rng_contents.increased_precision;
+
+  for (int i = 0; i < 6; ++i) {
+    Bg[i] = rng_contents.Bg[i];
+    Cg[i] = rng_contents.Cg[i];
+    Ig[i] = rng_contents.Ig[i];
+  }
+}
+
+RngContents RngStream::GetRngContents() const {
+  RngContents rng_contents;
+  rng_contents.name = name;
+  rng_contents.antithetic = anti;
+  rng_contents.increased_precision = incPrec;
+  rng_contents.Ig.insert(rng_contents.Ig.begin(), Ig, Ig + 6);
+  rng_contents.Bg.insert(rng_contents.Bg.begin(), Bg, Bg + 6);
+  rng_contents.Cg.insert(rng_contents.Cg.begin(), Cg, Cg + 6);
+  return rng_contents;
+}
+
+void RngStream::ResetToRngContents(const RngContents & rng_contents){
+  name = rng_contents.name;
+  anti = rng_contents.antithetic;
+  incPrec = rng_contents.increased_precision;
+
+  for (int i = 0; i < 6; ++i) {
+    Bg[i] = rng_contents.Bg[i];
+    Cg[i] = rng_contents.Cg[i];
+    Ig[i] = rng_contents.Ig[i];
+  }
+}
+
+//-------------------------------------------------------------------------
 // Reset Stream to beginning of Stream.
 //
 void RngStream::ResetStartStream() {
@@ -444,3 +478,19 @@ double RngStream::RandU01() {
 int RngStream::RandInt(int low, int high) {
   return low + static_cast<int>((high - low + 1.0) * RandU01());
 };
+
+
+bool operator==(const RngContents &lhs, const RngContents &rhs) {
+  return (lhs.name == rhs.name) && (lhs.antithetic == rhs.antithetic) &&
+         (lhs.increased_precision == rhs.increased_precision) &&
+         (lhs.Ig == rhs.Ig) && (lhs.Bg == rhs.Bg) && (lhs.Cg == rhs.Cg);
+}
+bool operator!=(const RngContents &lhs, const RngContents &rhs) {
+  return !(lhs == rhs);
+}
+
+bool is_synchronized_clone(const RngStream& S1, const RngStream& S2) {
+  const RngContents rc1{S1.GetRngContents()};
+  const RngContents rc2{S2.GetRngContents()};
+  return (&S1 != &S2) && (rc1 == rc2);
+}

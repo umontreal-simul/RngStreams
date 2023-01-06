@@ -100,7 +100,9 @@ add_executable(${PROJECT_NAME}_exec
 
 enable_testing()
 add_executable(${PROJECT_NAME}_test 
-  src/share/RngStream.cpp tests/utest-RngStream_original.cpp # EDIT THIS
+  src/share/RngStream.cpp 
+  tests/utest-RngStream_original.cpp 
+  tests/utest-RngStream_augmentations.cpp  # EDIT THIS
 )
 
 target_link_libraries(${PROJECT_NAME}_test GTest::gtest_main)
