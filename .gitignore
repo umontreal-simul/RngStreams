@@ -1,1 +1,61 @@
+# temporary and old
+*/old/*
+*/tmp/*
+tmp/*
+old/
+
+
+
+# Mac cruft 
+.DS_Store
+
+# vscode
+.vscode
+*~
+.*.swp
+
+# Python cruft
+*.egg-info
+*.pyc
+*.ipynb_checkpoints
+venv
+
+ 
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+bin/*
+*.out.dSYM/
 build/
+
+# GoogleTest 
+googletest/
